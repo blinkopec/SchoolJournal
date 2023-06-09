@@ -1,0 +1,93 @@
+﻿<Page x:Class="CourseProjectUpdated.TeacherVisual.Pages.JournalPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CourseProjectUpdated.TeacherVisual.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SchoolJournal">
+    <Page.Resources>
+        <ResourceDictionary>
+            
+             <DataTemplate x:Key="MarkTemplate">
+                <Border BorderBrush="Black" BorderThickness="2" 
+                        Width="25" Height="25" HorizontalAlignment="Left">
+                    <Button Content="{Binding MarkText}"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                             Width="25" Height="25"
+                            Click="MarkButton_Click"
+                            BorderBrush="Transparent" Background="Transparent">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="Green"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="DarkGoldenrod"/>
+                                        <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter Property="RenderTransform">
+                                            <Setter.Value>
+                                                <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Border>
+            </DataTemplate>
+            
+            <DataTemplate x:Key="TableStudentsDataTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="145"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="15"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Border Grid.Column="0" BorderThickness="2" BorderBrush="Black">
+                        <TextBlock Text="{Binding StudentName}" 
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    
+                    <ItemsControl Grid.Column="1" ItemsSource="{Binding marks}"
+                                  ItemTemplate="{StaticResource MarkTemplate}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+                    <Border Grid.Column="2" BorderBrush="Yellow" BorderThickness="2" HorizontalAlignment="Right">
+                        <TextBlock Text="{Binding AVG}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+        
+    <Grid>
+        <ItemsControl x:Name="MainControl" ItemTemplate="{StaticResource TableStudentsDataTemplate}"/>
+    </Grid>
+</Page>

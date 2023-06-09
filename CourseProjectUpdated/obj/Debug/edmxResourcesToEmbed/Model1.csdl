@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Class">
+    <Key>
+      <PropertyRef Name="class_code" />
+    </Key>
+    <Property Name="class_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="class_teacher_code" Type="Int32" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Student_Class" FromRole="Class" ToRole="Student" />
+    <NavigationProperty Name="TeacherClass" Relationship="Self.FK_TeacherClass_Class" FromRole="Class" ToRole="TeacherClass" />
+    <NavigationProperty Name="TimeTable" Relationship="Self.FK_TimeTable_Class" FromRole="Class" ToRole="TimeTable" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="item_code" />
+    </Key>
+    <Property Name="item_code" Type="Int32" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="18" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_Teacher_Item" FromRole="Item" ToRole="Teacher" />
+    <NavigationProperty Name="TimeTable" Relationship="Self.FK_TimeTable_Item" FromRole="Item" ToRole="TimeTable" />
+    <NavigationProperty Name="StudentTeacherItem" Relationship="Self.R_14" FromRole="Item" ToRole="StudentTeacherItem" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="student_code" />
+    </Key>
+    <Property Name="student_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="nameStudent" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="class_code" Type="Int32" Nullable="false" />
+    <Property Name="student_password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="student_login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="studentImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Class" Relationship="Self.FK_Student_Class" FromRole="Student" ToRole="Class" />
+    <NavigationProperty Name="StudentTeacherItem" Relationship="Self.R_13" FromRole="Student" ToRole="StudentTeacherItem" />
+  </EntityType>
+  <EntityType Name="StudentTeacherItem">
+    <Key>
+      <PropertyRef Name="MarkID" />
+    </Key>
+    <Property Name="teacher_code" Type="Int32" Nullable="false" />
+    <Property Name="student_code" Type="Int32" Nullable="false" />
+    <Property Name="item_code" Type="Int32" Nullable="false" />
+    <Property Name="mark" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="dateMark" Type="DateTime" Precision="0" />
+    <Property Name="MarkID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Item" Relationship="Self.R_14" FromRole="StudentTeacherItem" ToRole="Item" />
+    <NavigationProperty Name="Student" Relationship="Self.R_13" FromRole="StudentTeacherItem" ToRole="Student" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_StudentTeacherItem_Teacher" FromRole="StudentTeacherItem" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="teacher_code" />
+    </Key>
+    <Property Name="teacher_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="middlename" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="item_code" Type="Int32" />
+    <Property Name="teacher_password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="teacher_login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="teacherImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_Teacher_Item" FromRole="Teacher" ToRole="Item" />
+    <NavigationProperty Name="StudentTeacherItem" Relationship="Self.FK_StudentTeacherItem_Teacher" FromRole="Teacher" ToRole="StudentTeacherItem" />
+    <NavigationProperty Name="TeacherClass" Relationship="Self.FK_TeacherClass_Teacher" FromRole="Teacher" ToRole="TeacherClass" />
+    <NavigationProperty Name="TimeTable" Relationship="Self.FK_TimeTable_Teacher" FromRole="Teacher" ToRole="TimeTable" />
+  </EntityType>
+  <EntityType Name="TeacherClass">
+    <Key>
+      <PropertyRef Name="teacherclass_code" />
+    </Key>
+    <Property Name="teacher_code" Type="Int32" Nullable="false" />
+    <Property Name="class_code" Type="Int32" Nullable="false" />
+    <Property Name="teacherclass_code" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Class" Relationship="Self.FK_TeacherClass_Class" FromRole="TeacherClass" ToRole="Class" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_TeacherClass_Teacher" FromRole="TeacherClass" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="TimeTable">
+    <Key>
+      <PropertyRef Name="id_timetable" />
+    </Key>
+    <Property Name="id_timetable" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="item_code" Type="Int32" />
+    <Property Name="class_code" Type="Int32" />
+    <Property Name="teacher_code" Type="Int32" />
+    <Property Name="date_timetable" Type="DateTime" Precision="0" />
+    <Property Name="description_of_item" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="number_of_item" Type="Int32" />
+    <NavigationProperty Name="Class" Relationship="Self.FK_TimeTable_Class" FromRole="TimeTable" ToRole="Class" />
+    <NavigationProperty Name="Item" Relationship="Self.FK_TimeTable_Item" FromRole="TimeTable" ToRole="Item" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_TimeTable_Teacher" FromRole="TimeTable" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="Administrators">
+    <Key>
+      <PropertyRef Name="id_admin" />
+    </Key>
+    <Property Name="id_admin" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="login_admin" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+    <Property Name="password_admin" Type="String" MaxLength="20" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="History">
+    <Key>
+      <PropertyRef Name="Код" />
+    </Key>
+    <Property Name="Код" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserHistory" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DateHistory" Type="DateTime" Precision="0" />
+    <Property Name="Operation" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Student_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="class_code" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="class_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TeacherClass_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="1" />
+    <End Role="TeacherClass" Type="Self.TeacherClass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="class_code" />
+      </Principal>
+      <Dependent Role="TeacherClass">
+        <PropertyRef Name="class_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeTable_Class">
+    <End Role="Class" Type="Self.Class" Multiplicity="0..1" />
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Class">
+        <PropertyRef Name="class_code" />
+      </Principal>
+      <Dependent Role="TimeTable">
+        <PropertyRef Name="class_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teacher_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="item_code" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="item_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeTable_Item">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="item_code" />
+      </Principal>
+      <Dependent Role="TimeTable">
+        <PropertyRef Name="item_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_14">
+    <End Role="Item" Type="Self.Item" Multiplicity="1" />
+    <End Role="StudentTeacherItem" Type="Self.StudentTeacherItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="item_code" />
+      </Principal>
+      <Dependent Role="StudentTeacherItem">
+        <PropertyRef Name="item_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="R_13">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="StudentTeacherItem" Type="Self.StudentTeacherItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="student_code" />
+      </Principal>
+      <Dependent Role="StudentTeacherItem">
+        <PropertyRef Name="student_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentTeacherItem_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="StudentTeacherItem" Type="Self.StudentTeacherItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="teacher_code" />
+      </Principal>
+      <Dependent Role="StudentTeacherItem">
+        <PropertyRef Name="teacher_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TeacherClass_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="TeacherClass" Type="Self.TeacherClass" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="teacher_code" />
+      </Principal>
+      <Dependent Role="TeacherClass">
+        <PropertyRef Name="teacher_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TimeTable_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="0..1" />
+    <End Role="TimeTable" Type="Self.TimeTable" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="teacher_code" />
+      </Principal>
+      <Dependent Role="TimeTable">
+        <PropertyRef Name="teacher_code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="course_projectEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Class" EntityType="Self.Class" />
+    <EntitySet Name="Item" EntityType="Self.Item" />
+    <EntitySet Name="Student" EntityType="Self.Student" />
+    <EntitySet Name="StudentTeacherItem" EntityType="Self.StudentTeacherItem" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" />
+    <EntitySet Name="TeacherClass" EntityType="Self.TeacherClass" />
+    <EntitySet Name="TimeTable" EntityType="Self.TimeTable" />
+    <EntitySet Name="Administrators" EntityType="Self.Administrators" />
+    <EntitySet Name="History" EntityType="Self.History" />
+    <AssociationSet Name="FK_Student_Class" Association="Self.FK_Student_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeacherClass_Class" Association="Self.FK_TeacherClass_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="TeacherClass" EntitySet="TeacherClass" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeTable_Class" Association="Self.FK_TimeTable_Class">
+      <End Role="Class" EntitySet="Class" />
+      <End Role="TimeTable" EntitySet="TimeTable" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teacher_Item" Association="Self.FK_Teacher_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="Teacher" EntitySet="Teacher" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeTable_Item" Association="Self.FK_TimeTable_Item">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="TimeTable" EntitySet="TimeTable" />
+    </AssociationSet>
+    <AssociationSet Name="R_14" Association="Self.R_14">
+      <End Role="Item" EntitySet="Item" />
+      <End Role="StudentTeacherItem" EntitySet="StudentTeacherItem" />
+    </AssociationSet>
+    <AssociationSet Name="R_13" Association="Self.R_13">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentTeacherItem" EntitySet="StudentTeacherItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentTeacherItem_Teacher" Association="Self.FK_StudentTeacherItem_Teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="StudentTeacherItem" EntitySet="StudentTeacherItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TeacherClass_Teacher" Association="Self.FK_TeacherClass_Teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="TeacherClass" EntitySet="TeacherClass" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TimeTable_Teacher" Association="Self.FK_TimeTable_Teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="TimeTable" EntitySet="TimeTable" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

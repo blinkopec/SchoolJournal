@@ -1,0 +1,118 @@
+﻿<Window x:Class="CourseProject.Administrator.AddTeacherWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CourseProject.Administrator"
+        mc:Ignorable="d"
+        Title="SchoolJournal" Height="450" Width="300">
+    <Grid x:Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Label HorizontalAlignment="Center" VerticalAlignment="Center" Content="Введите данные" Grid.Row="0" FontSize="24"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Label Content="Фамилия:" FontStyle="Italic" FontWeight="Bold"/>
+            <TextBox x:Name="surnameBox" Width="200" VerticalAlignment="Top" Height="25" Margin="8,0,0,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Label Content="Имя:" FontStyle="Italic" FontWeight="Bold"/>
+            <TextBox x:Name="nameBox" Text="{Binding name}" Width="200" VerticalAlignment="Top" Height="25" Margin="37.5,0,0,0"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="3">
+            <Label Content="Отчество:" FontStyle="Italic" FontWeight="Bold"/>
+            <TextBox x:Name="middlenameBox"  Width="200" VerticalAlignment="Top" Height="25" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="4">
+            <Label Content="Предмет:" FontStyle="Italic" FontWeight="Bold"/>
+            <ComboBox x:Name="itemBox" Width="200" VerticalAlignment="Top" Height="25" Margin="7.5,0,0,0" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="5">
+            <Label Content="Логин:" FontStyle="Italic" FontWeight="Bold"/>
+            <TextBox x:Name="loginBox" Width="200" VerticalAlignment="Top" Height="25" Margin="27.5,0,0,0"/>
+        </StackPanel>
+        <StackPanel Margin="0,0,0,0" Orientation="Horizontal" Grid.Row="6">
+            <Label Content="Пароль:" FontStyle="Italic" FontWeight="Bold"/>
+            <TextBox x:Name="passwordBox" Width="200"  VerticalAlignment="Top" Height="25" Margin="19.3,0,0,0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="7">
+            <Button Background="Transparent" Content="Отменить" Margin="20,0,0,0" Click="Button_Click_1">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Green"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkGoldenrod"/>
+                                <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Background="Transparent"  Content="Сохранить" Margin="140,0,0,0" Click="Button_Click" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background" Value="Green"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="DarkGoldenrod"/>
+                                <Setter Property="RenderTransformOrigin" Value="0.5, 0.5"/>
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="RenderTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX="1" ScaleY="1"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Window>
